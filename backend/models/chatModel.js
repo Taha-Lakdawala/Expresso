@@ -4,7 +4,7 @@ const chatModel = mongoose.Schema(
     {
         chatName: { type: String, trim: true },
         isGroupChat: { type: Boolean, default: false },
-        user: [
+        users: [
             {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
@@ -26,6 +26,7 @@ const chatModel = mongoose.Schema(
     }
 );
 
-const chat = mongoose.model("Chat", chatModel);
+const Chat = mongoose.model("Chat", chatModel);
+
 module.exports = Chat;
 
