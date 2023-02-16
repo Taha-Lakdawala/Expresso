@@ -26,7 +26,7 @@ const Signup = () => {
             });
             return;
         }
-        if (pics.type === "image/jpeg" || pics.type === "image/png"){
+        if (pics.type === "image/jpeg" || pics.type === "image/jpg" || pics.type === "image/png"){
             const data = new FormData();
             data.append("file", pics);
             data.append("upload_preset", "Expresso");
@@ -34,7 +34,8 @@ const Signup = () => {
             fetch("https://api.cloudinary.com/v1_1/dwt77ikek/image/upload", {
                 method: "post",
                 body: data,
-            }).then((res) => res.json())
+            })
+            .then((res) => res.json())
             .then((data) => {
                 setPic(data.url.toString());
                 setLoading(false);
@@ -105,6 +106,7 @@ const Signup = () => {
         } catch(error){
             toast({
                 title: "Error!",
+                description: error.response.data.message,
                 status: "warning",
                 duration: 5000,
                 isClosable: true,
