@@ -30,15 +30,16 @@ const MyChats = ({fetchAgain}) => {
                 status: "error",
                 duration: 5000,
                 isClosable: true,
-                position: "bottom-left",
+                position: "bottom",
             });
         }
 
     }
 
     useEffect(() => {
-        setLoggedUser(JSON.parse(localStorage.getItem("userInfo")))
-        fetchChats();
+      setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
+      fetchChats();
+      // eslint-disable-next-line
     }, [fetchAgain]);
 
     return (

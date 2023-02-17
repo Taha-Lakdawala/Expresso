@@ -13,9 +13,12 @@ const Signup = () => {
     const [loading, setLoading] = useState(false);
     const toast = useToast();
     const history = useHistory();
+    const [picLoading, setPicLoading] = useState(false);
 
     const handleClick = () => setShow(!show);
+
     const postDetails = (pics) => {
+        setPicLoading(true);
         if (pics === undefined ){
             toast({
                 title: "Please select an Image!",
@@ -38,11 +41,11 @@ const Signup = () => {
             .then((res) => res.json())
             .then((data) => {
                 setPic(data.url.toString());
-                setLoading(false);
+                setPicLoading(false);
             })
             .catch((err) => {
                 console.log(err);
-                setLoading(false);
+                setPicLoading(false);
             });
         }
         else{
@@ -53,7 +56,7 @@ const Signup = () => {
                 isClosable: true,
                 position: "botton",
             });
-            setLoading(false);
+            setPicLoading(false);
             return;
         }
     };
@@ -80,6 +83,7 @@ const Signup = () => {
                 isClosable: true,
                 position: "bottom"
             });
+            setLoading(false);
             return;
         }
         try{
@@ -88,9 +92,10 @@ const Signup = () => {
                     "Content-type": "application/json",
                 },
             };
+            console.log(pic);
             const {data} = await axios.post(
                 "/api/user",
-                {name, email, password, pic},
+                { name, email, password, pic, },
                 config  
             );
             toast({

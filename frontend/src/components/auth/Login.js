@@ -32,9 +32,9 @@ const Login = () => {
                     "Content-type": "application/json",
                 },
             };
-            const {data} = await axios.post(
+            const { data } = await axios.post(
                 "/api/user/login",
-                {email, password},
+                { email, password },
                 config  
             );
             toast({
@@ -50,7 +50,8 @@ const Login = () => {
         } catch(error){
             toast({
                 title: "Error!",
-                status: "warning",
+                description: error.response.data.message,
+                status: "error",
                 duration: 5000,
                 isClosable: true,
                 position: "bottom"
@@ -60,25 +61,26 @@ const Login = () => {
     };
 
     return(
-        <VStack spacing="5px" color="black">
+        <VStack spacing="10px" color="black">
 
             <FormControl id="email" isRequired>
                 <FormLabel>Email</FormLabel>
                 <Input
-                    placeholder="Enter Your Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter Your Email"
+                    type="email"
                 />
             </FormControl>
 
             <FormControl id="password" isRequired>
                 <FormLabel>Password</FormLabel>
-                <InputGroup>
+                <InputGroup size="md">
                     <Input
-                        type={show ? "text" : "password"}
-                        placeholder="Enter Your Password"
                         value={password}
+                        type={show ? "text" : "password"}
                         onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Enter Your Password"
                     />
                     <InputRightElement width="4.5rem">
                         <Button h="1.75rem" size="sm" onClick={handleClick}>
