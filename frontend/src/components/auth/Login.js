@@ -92,7 +92,7 @@ const Login = () => {
 
 
             <Button
-                colorScheme="green"
+                colorScheme="blue"
                 width="100%"
                 style={{ marginTop: 15 }}
                 onClick={submitHandler}

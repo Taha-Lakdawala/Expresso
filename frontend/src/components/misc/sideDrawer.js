@@ -57,7 +57,6 @@ const SideDrawer = () => {
                 },
             };
             const {data} = await axios.get(`/api/user?search=${search}`, config)
-            console.log(data);
             setLoading(false);
             setSearchResult(data);
 
@@ -101,112 +100,108 @@ const SideDrawer = () => {
     }
 
     return (
-        <>
-            <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                bg="white"
-                p="5px 10px 5px 10px"
-                borderWidth="5px"
-            >
-                <Tooltip label="Search users to chat" 
-                hasArrow 
-                placement="bottom-end"
-                >
-                    <Button variant="ghost" onClick={onOpen} >
-                        <i className="fas fa-search"></i>
-                        <Text d={{base:"none", md:"flex "}} px="4">
-                            Search user
-                        </Text>
-                    </Button>
-                </Tooltip>
+      <>
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          bg="white"
+          p="5px 10px 5px 10px"
+          borderWidth="5px"
+          borderEnd="1px"
+        >
+          <Tooltip label="Search users to chat" hasArrow placement="bottom-end">
+            <Button variant="ghost" onClick={onOpen}>
+              <i className="fas fa-search"></i>
+              <Text d={{ base: "none", md: "flex " }} px="4">
+                Search Users
+              </Text>
+            </Button>
+          </Tooltip>
 
-                <Text fontSize="2xl" fontFamily="Work Sans">
-                    Expresso
-                </Text>
+          <Text fontSize="3xl" fontFamily="Work Sans" as="b">
+            Expresso
+          </Text>
 
-                <div>
-                    <Menu>
-                        <MenuButton p={1}>
-                            <NotificationBadge
-                                count={notification.length}
-                                effect={Effect.SCALE}
-                            />
-                            <BellIcon fontSize="2xl" m={1} />
-                        </MenuButton>
-                        <MenuList pl={2}>
-                            {!notification.length && "No New Message"}
-                            {notification.map((notif) => (
-                                <MenuItem key={notif._id} onClick={() => {
-                                    setSelectedChat(notif.chat);
-                                    setNotification(notification.filter((n) => n !== notif));
-                                }}>
-                                    {notif.chat.isGroupChat
-                                        ? `New Message in ${notif.chat.chatName}`
-                                        : `New Message from ${getSender(user, notif.chat.users)}`
-                                    }
-                                </MenuItem>
-                            ))}
-                            </MenuList>
-                    </Menu>
+          <div>
+            <Menu>
+              <MenuButton p={1}>
+                <NotificationBadge
+                  count={notification.length}
+                  effect={Effect.SCALE}
+                />
+                <BellIcon fontSize="2xl" />
+              </MenuButton>
+              <MenuList pl={2}>
+                {!notification.length && "No New Message"}
+                {notification.map((notif) => (
+                  <MenuItem
+                    key={notif._id}
+                    onClick={() => {
+                      setSelectedChat(notif.chat);
+                      setNotification(notification.filter((n) => n !== notif));
+                    }}
+                  >
+                    {notif.chat.isGroupChat
+                      ? `New Message in ${notif.chat.chatName}`
+                      : `New Message from ${getSender(user, notif.chat.users)}`}
+                  </MenuItem>
+                ))}
+              </MenuList>
+            </Menu>
 
-                    <Menu>
-                        <MenuButton as={Button} rightIcon={<ChevronDownIcon/>}>
-                            <Avatar 
-                            size="sm" 
-                            cursor="pointer" 
-                            name={user.name}
-                            src={user.pic}
-                            />
-                        </MenuButton>
-                        <MenuList>
-                            <ProfileModal user={user}>
-                                <MenuItem>My profile</MenuItem>
-                            </ProfileModal>
-                            <MenuDivider/>
-                            <MenuItem onClick={logoutHandler}>Logout</MenuItem>
-                        </MenuList>
-                    </Menu>
-                </div>
-                
-            </Box>
+            <Menu>
+              <MenuButton as={Button} colorScheme="white" p={1}>
+                <Avatar
+                  size="sm"
+                  cursor="pointer"
+                  name={user.name}
+                  src={user.pic}
+                />
+              </MenuButton>
+              <MenuList>
+                <ProfileModal user={user}>
+                  <MenuItem>My profile</MenuItem>
+                </ProfileModal>
+                <MenuDivider />
+                <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+              </MenuList>
+            </Menu>
+          </div>
+        </Box>
 
-            <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
-                <DrawerOverlay/>
-                <DrawerContent>
-                    <DrawerHeader borderBottomWidth="1px">Search Users</DrawerHeader>
-                    
-                    <DrawerBody>
-                        <Box display="flex" pb={2}>
-                            <Input
-                                placeholder="Search by name or email"
-                                mr={2}
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value)}
-                            />
+        <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
+          <DrawerOverlay />
+          <DrawerContent>
+            <DrawerHeader borderBottomWidth="1px">Search Users</DrawerHeader>
 
-                            <Button onClick={handleSearch}> Go </Button>
-                        </Box>
-                        {loading ? <ChatLoading/> :
-                            (
-                                searchResult?.map((u) => (
-                                    <UserListItem
-                                        key={u._id}
-                                        user={u}
-                                        handleFunction={() => accessChat(u._id)}
-                                    />
-                                ))
-                            )}
-                            {loadingChat && <Spinner ml="auto" display="flex" />}
-                    </DrawerBody>
+            <DrawerBody>
+              <Box display="flex" pb={2}>
+                <Input
+                  placeholder="Search by name or email"
+                  mr={2}
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
 
-                </DrawerContent>
-
-                
-            </Drawer>
-        </>
-        
+                <Button onClick={handleSearch}> Go </Button>
+              </Box>
+              {loading ? (
+                <ChatLoading />
+              ) : (
+                searchResult?.map((u) => (
+                  <UserListItem
+                    key={u._id}
+                    user={u}
+                    handleFunction={() => accessChat(u._id)}
+                  />
+                ))
+              )}
+              {loadingChat && <Spinner ml="auto" display="flex" />}
+            </DrawerBody>
+          </DrawerContent>
+        </Drawer>
+      </>
     );
 };
 

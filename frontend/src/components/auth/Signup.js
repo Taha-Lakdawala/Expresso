@@ -44,7 +44,6 @@ const Signup = () => {
                 setPicLoading(false);
             })
             .catch((err) => {
-                console.log(err);
                 setPicLoading(false);
             });
         }
@@ -74,8 +73,6 @@ const Signup = () => {
             return;
         }
         if (password !== confirmpassword) {
-            console.log(password);
-            console.log(confirmpassword);
             toast({
                 title: "Password doesn't match",
                 status: "warning",
@@ -92,7 +89,6 @@ const Signup = () => {
                     "Content-type": "application/json",
                 },
             };
-            console.log(pic);
             const {data} = await axios.post(
                 "/api/user",
                 { name, email, password, pic, },
@@ -117,7 +113,6 @@ const Signup = () => {
                 isClosable: true,
                 position: "bottom"
             });
-            console.log(error);
             setLoading(false);
         }
     };
