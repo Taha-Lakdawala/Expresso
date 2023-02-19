@@ -13,7 +13,7 @@ import { Avatar } from "@chakra-ui/avatar";
 import React, { useState } from 'react'
 import { ChatState } from "../../context/chatProvider";
 import { useHistory } from "react-router-dom";
-import ProfileModal from "./profileModal";
+import ProfileModal from "./ProfileModal";
 import { Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Input, Spinner, useDisclosure, useToast } from "@chakra-ui/react";
 import axios from "axios";
 import ChatLoading from "../ChatLoading";
