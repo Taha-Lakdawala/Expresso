@@ -8,7 +8,6 @@ import ChatLoading from './ChatLoading';
 import { GroupChatModal } from './misc/GroupChatModal';
 
 const MyChats = ({fetchAgain}) => {
-    const [loggedUser, setLoggedUser] = useState();
     const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
 
     const toast = useToast();
@@ -37,7 +36,6 @@ const MyChats = ({fetchAgain}) => {
     }
 
     useEffect(() => {
-      setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
       fetchChats();
       // eslint-disable-next-line
     }, [fetchAgain]);
@@ -100,7 +98,7 @@ const MyChats = ({fetchAgain}) => {
                 >
                   <Text>
                     {!chat.isGroupChat
-                      ? getSender(loggedUser, chat.users)
+                      ? getSender(user, chat.users)
                       : chat.chatName}
                   </Text>
                   {chat.latestMessage && (

@@ -19,7 +19,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [newMessage, setNewMessage] = useState();
+    const [newMessage, setNewMessage] = useState("");
     const toast = useToast();
     const [socketConnected, setsocketConnected] = useState(false);
     const [typing, setTyping] = useState(false);
@@ -169,7 +169,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               {messages &&
                 (!selectedChat.isGroupChat ? (
                   <>
-                    <Text >{getSender(user, selectedChat.users)}</Text>
+                    {getSender(user, selectedChat.users)}
                     <ProfileModal
                       user={getSenderFull(user, selectedChat.users)}
                     />

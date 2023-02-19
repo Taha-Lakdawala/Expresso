@@ -5,10 +5,11 @@ import { useHistory } from 'react-router-dom';
 
 const Login = () => {
     const [show, setShow] = useState(false);
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const toast = useToast();
+
     const history = useHistory();
     
     const handleClick = () => setShow(!show);
@@ -78,8 +79,8 @@ const Login = () => {
                 <InputGroup size="md">
                     <Input
                         value={password}
-                        type={show ? "text" : "password"}
                         onChange={(e) => setPassword(e.target.value)}
+                        type={show ? "text" : "password"}
                         placeholder="Enter Your Password"
                     />
                     <InputRightElement width="4.5rem">
@@ -117,4 +118,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Login;
