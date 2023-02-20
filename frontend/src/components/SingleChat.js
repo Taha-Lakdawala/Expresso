@@ -12,7 +12,7 @@ import Lottie from "react-lottie";
 import animationData from "../animations/typing.json";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 
-const ENDPOINT = "https://expresso.onrender.com";
+const ENDPOINT = "http://localhost:8800";
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -220,7 +220,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                     <Lottie
                       options={defaultOptions}
                       width={70}
-                      style={{ marginBottom: 15, marginLeft: 0 }}
+                      style={{ marginBottom: 15, marginLeft: 0, height: 30 }}
                     />
                   </div>
                 ) : (
