@@ -12,7 +12,7 @@ import Lottie from "react-lottie";
 import animationData from "../animations/typing.json";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 
-const ENDPOINT = "http://localhost:8800";
+const ENDPOINT = "https://expresso.onrender.com/";
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
